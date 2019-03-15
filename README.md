@@ -3,15 +3,14 @@
 > `TL;DR`
 
 find a Debian or Ubuntu box with root on a clean public IP and run:
-```
-apt-get update\
-  && apt-get -y install vim dnsutils curl sudo\
-  && curl -fsSL https://get.docker.com/ | sh\
-  && mkdir -p ~/netflix-proxy\
-  && cd ~/netflix-proxy\
-  && curl -fsSL https://github.com/ab77/netflix-proxy/archive/latest.tar.gz | gunzip - | tar x --strip-components=1\
-  && ./build.sh
-```
+
+    apt-get update\
+	  && apt-get -y install vim dnsutils curl sudo\
+	  && curl -fsSL https://get.docker.com/ | sh || apt-get -y install docker.io\
+	  && mkdir -p ~/netflix-proxy\
+	  && cd ~/netflix-proxy\
+	  && curl -fsSL https://github.com/ab77/netflix-proxy/archive/latest.tar.gz | gunzip - | tar x --strip-components=1\
+	  && ./build.sh
 
 See the [**Wiki**](https://github.com/ab77/netflix-proxy/wiki) page(s) for some common troubleshooting ideas.
 
@@ -20,14 +19,13 @@ See the [**Wiki**](https://github.com/ab77/netflix-proxy/wiki) page(s) for some 
 <a href="https://dashboard.unzoner.com/sub"><img align="left" src="https://api.unzoner.com/api/v1.0/countries/available/flags.png"></a><br><br>
 
 # about
-`netflix-proxy` is a smart DNS proxy to stream `Netflix`, `Hulu`[[n2]](#footnotes), `HBO Now` and others out of region. It is deployed using Docker containers and uses `dnsmasq` and `sniproxy`[[n1]](#footnotes) to provide SmartDNS services. It works for some blocked sites, such as [PornHub](http://www.pornhub.com/) and [YouTube](https://en.wikipedia.org/wiki/Blocking_of_YouTube_videos_in_Germany). [Subscribe](http://eepurl.com/cb4rUv) to the mailing list and be notified of new features, updates, etc.
+`netflix-proxy` is a smart DNS proxy to stream `Netflix`, `Hulu`[[n2]](#footnotes), `HBO Now` and others out of region. It is deployed using Docker containers and uses `dnsmasq`[[n18]](#footnotes) and `sniproxy`[[n1]](#footnotes) to provide SmartDNS services. It works for some blocked sites, such as [PornHub](http://www.pornhub.com/) and [YouTube](https://en.wikipedia.org/wiki/Blocking_of_YouTube_videos_in_Germany). [Subscribe](http://eepurl.com/cb4rUv) to the mailing list and be notified of new features, updates, etc.
 
 # supported services
-The following are supported out of the box, however adding additional services is trivial and is done by updating `dnsmasq.conf` file and ru
-nning `docker restart dnsmasq`:
+The following are supported out of the box, however adding additional services is trivial and is done by updating `dnsmasq.conf` file and running `docker restart dnsmasq`:
 * Netflix
 * Hulu[[n2]](#footnotes)
-* HBO Now 
+* HBO Now
 * Amazon Instant Video
 * Crackle
 * Pandora
@@ -112,7 +110,7 @@ Usage: ./build.sh [-b 0|1] [-c <ip>]
 ```
 
 ### updates
-In order to update your existing database schema, please run the provided `update.sh` script. Alternatively you can run the schema updates manually (e.g. if you skipped a version). 
+In order to update your existing database schema, please run the provided `update.sh` script. Alternatively you can run the schema updates manually (e.g. if you skipped a version).
 
 ## other cloud providers
 
@@ -137,15 +135,17 @@ export LANGUAGE=en_US.UTF-8\
 1. For a limited time, head over to [Vultr](http://www.vultr.com/?ref=6962933-3B) to create and account and get **$20 USD credit**.
 2. Create a compute instance in a geographic location of interest using Debian or Ubuntu image.
 3. SSH to your server and run:
+
 ```
 apt-get update\
   && apt-get -y install vim dnsutils curl sudo\
-  && curl -fsSL https://get.docker.com/ | sh\
+  && curl -fsSL https://get.docker.com/ | sh || apt-get -y install docker.io\
   && mkdir -p ~/netflix-proxy\
   && cd ~/netflix-proxy\
   && curl -fsSL https://github.com/ab77/netflix-proxy/archive/latest.tar.gz | gunzip - | tar x --strip-components=1\
   && ./build.sh
 ```
+
 4. Make sure to **record the credentials** for the `netflix-proxy` admin site.
 5. Set your DNS server to the IP given at the end of the script, then go to [this](http://ifconfig.co/) site to make sure the same IP is displayed.
 6. Finally, enjoy `Netflix` and others out of region.
@@ -160,9 +160,9 @@ apt-get update\
 3. SSH to your server and run:
 
 ```
-apt-get update\ 
+apt-get update\
   && apt-get -y install vim dnsutils curl sudo\
-  && curl -fsSL https://get.docker.com/ | sh\
+  && curl -fsSL https://get.docker.com/ | sh || apt-get -y install docker.io\
   && mkdir -p ~/netflix-proxy\
   && cd ~/netflix-proxy\
   && curl -fsSL https://github.com/ab77/netflix-proxy/archive/latest.tar.gz | gunzip - | tar x --strip-components=1\
@@ -186,7 +186,7 @@ apt-get update\
 ```
 apt-get update\
   && apt-get -y install vim dnsutils curl sudo\
-  && curl -fsSL https://get.docker.com/ | sh\
+  && curl -fsSL https://get.docker.com/ | sh || apt-get -y install docker.io\
   && mkdir -p ~/netflix-proxy\
   && cd ~/netflix-proxy\
   && curl -fsSL https://github.com/ab77/netflix-proxy/archive/latest.tar.gz | gunzip - | tar x --strip-components=1\
@@ -209,7 +209,7 @@ apt-get update\
 ```
 apt-get update\
   && apt-get -y install vim dnsutils curl sudo\
-  && curl -fsSL https://get.docker.com/ | sh\
+  && curl -fsSL https://get.docker.com/ | sh || apt-get -y install docker.io\
   && mkdir -p ~/netflix-proxy\
   && cd ~/netflix-proxy\
   && curl -fsSL https://github.com/ab77/netflix-proxy/archive/latest.tar.gz | gunzip - | tar x --strip-components=1\
@@ -234,7 +234,7 @@ apt-get update\
 ```
 sudo apt-get update\
   && sudo apt-get -y install vim dnsutils curl\
-  && curl -fsSL https://get.docker.com/ | sh\
+  && curl -fsSL https://get.docker.com/ | sh || apt-get -y install docker.io\
   && sudo usermod -aG docker $(whoami | awk '{print $1}')\
   && mkdir -p ~/netflix-proxy\
   && cd ~/netflix-proxy\
@@ -257,7 +257,7 @@ The following is based on Ubuntu image provided by `Gandi` using` root` login wi
 ```
 apt-get update\
   && apt-get -y install vim dnsutils curl sudo\
-  && curl -fsSL https://get.docker.com/ | sh\
+  && curl -fsSL https://get.docker.com/ | sh || apt-get -y install docker.io\
   && mkdir -p ~/netflix-proxy\
   && cd ~/netflix-proxy\
   && curl -fsSL https://github.com/ab77/netflix-proxy/archive/latest.tar.gz | gunzip - | tar x --strip-components=1\
@@ -405,6 +405,7 @@ If you find this useful, please feel free to make a small donation with [PayPal]
 15. See, [article](https://openvz.org/Docker_inside_CT).
 16. Netflix have most definitely blocked this service provider network ranges, so following the process is unlikely to yield an unblocking solution. If you own a compatible device, you could try `black.box` [unzoner](http://unzoner.com).
 17. GFW is probably re-writing DNS responses for certain very sensitive domains (i.e. facebook.com), so unfortunately a simple proxy solution like this won't work. VPN technology is required to bypass, try `black.box` [unzoner](http://unzoner.com).
+18. [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) by `simon@thekelleys.org.uk`.
 
 ```
 -- v3.0
